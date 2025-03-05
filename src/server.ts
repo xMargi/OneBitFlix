@@ -1,9 +1,15 @@
 // src/server.ts
-
 import express from 'express'
 import { database } from './database'
+import { adminJs, adminJsRouter } from './adminJs'
+
 
 const app = express()
+
+app.use(express.static('public'))
+
+//app.use(caminho, rotas)
+app.use(adminJs.options.rootPath, adminJsRouter)
 
 const PORT = process.env.port || 3000
 
