@@ -8,7 +8,7 @@ Category.hasMany(Course, {as: 'courses'})
 Course.belongsTo(Category)
 
 //relacionamento tabela de episodios com os cursos 1:n
-Course.hasMany(Episode) // Episodes
+Course.hasMany(Episode, {as: 'episodes'})
 Episode.belongsTo(Course)
 
 export {
