@@ -16,15 +16,15 @@ export interface IUser {
 
 type CheckPasswordCallback = (err: Error | undefined, isSame: boolean) => void;
 
-export interface UserCreationAttributes extends Optional<IUser, "id"> {}
+export interface UserCreationAttributes extends Optional<IUser, "id"> { }
 
 export interface UserInstance
   extends Model<IUser, UserCreationAttributes>,
-    IUser {
+  IUser {
   checkPassword: (password: string, callbackfn: CheckPasswordCallback) => void;
 }
 
-// Definição do modelo sem adicionar o método diretamente
+
 const UserBase = database.define<UserInstance, UserCreationAttributes>(
   "User",
   {
@@ -80,14 +80,14 @@ const UserBase = database.define<UserInstance, UserCreationAttributes>(
     },
   }
 ) as typeof Model & {
-  new (): UserInstance;
+  new(): UserInstance;
   prototype: UserInstance;
 };
 
-// Exportar o modelo com o tipo correto
+
 export const User = UserBase;
 
-// Adicionar o método checkPassword após a definição
+
 (User.prototype as UserInstance).checkPassword = function (
   password: string,
   callbackfn: CheckPasswordCallback
