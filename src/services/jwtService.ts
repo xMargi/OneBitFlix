@@ -5,7 +5,7 @@ const secretKey: string = 'chave-do-jwt';
 export const jwtService = {
     signToken: (payload: string | object | Buffer, expiration: string): string => {
         const signOptions: SignOptions = {
-            expiresIn: expiration as any // Força a aceitação como StringValue (use com cuidado)
+            expiresIn: expiration as any 
         };
         return jwt.sign(payload, secretKey, signOptions);
     },
