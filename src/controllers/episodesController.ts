@@ -10,9 +10,9 @@ export const episodesController = {
         try {
             if (typeof videoUrl !== 'string') throw new Error('VideoUrl param must be of type string')
 
-                const range = req.headers.range // bytes=0-1024
+            const range = req.headers.range // bytes=0-1024
 
-                episodeService.streamEpisodeToResponse(res, videoUrl, range)
+            episodeService.streamEpisodeToResponse(res, videoUrl, range)
         } catch (error) {
             if (error instanceof Error) {
                 return res.status(400).json({ message: error.message })
