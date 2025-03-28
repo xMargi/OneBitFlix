@@ -33,6 +33,20 @@ export const coursesController = {
         }
     },
 
+    //GET /courses/popular
+
+    popular: async (req: Request, res: Response) => {
+        try {
+            const topTen = await courseService.getTopTenByLikes()
+            return res.json(topTen)
+            
+        } catch (error) {
+            if (error instanceof Error) {
+                return res.status(400).json({ message: error.message })
+            }
+        }
+    },
+
     //GET /courses/search?name=
 
     search: async (req: Request, res: Response) => {
@@ -61,7 +75,7 @@ export const coursesController = {
 
             const liked = await likeService.isLiked(userId, +courseId)
             const favorited = await favoriteService.isFavorited(userId, +courseId)
-            return res.json({ ...course.get(), favorited, liked  })
+            return res.json({ ...course.get(), favorited, liked })
         } catch (error) {
             if (error instanceof Error) {
                 return res.status(400).json({ message: error.message })
