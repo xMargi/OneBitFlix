@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import { database } from "../database";
 import bcrypt from "bcrypt";
+import { EpisodeInstance } from "./Episode";
 
 // Interface que define a estrutura de um usuário
 export interface IUser {
@@ -21,7 +22,8 @@ export interface UserCreationAttributes extends Optional<IUser, "id"> { }
 export interface UserInstance
   extends Model<IUser, UserCreationAttributes>,
   IUser {
-  checkPassword: (password: string, callbackfn: CheckPasswordCallback) => void;
+    Episodes?: EpisodeInstance[]
+    checkPassword: (password: string, callbackfn: CheckPasswordCallback) => void;
 }
 
 
