@@ -40,6 +40,18 @@ export const userService = {
         return user
     },
 
+    updateUserData: async (id: number, attributes: {
+        firstName: string,
+        lastName: string,
+        phone: string,
+        birth: Date,
+        email: string
+    }) => {
+        const [affectedRows, updatedUsers] = await User.update(attributes, { where: { id }, returning: true })
+
+        return updatedUsers[0]
+    },
+
     getKeepWatchingList: async (userId: number) => {
         const userWithWatchingEpisodes = await User.findByPk(userId, {
             include: {
@@ -77,7 +89,7 @@ export const userService = {
 
         const keepWatchinList = filterLastEpisodesByCourse(userWithWatchingEpisodes.Episodes!)
         // @ts-ignore
-        keepWatchinList.sort((a, b) => a.watchTime!.updatedAt < b.watchTime.updatedAt ? 1 : -1) 
+        keepWatchinList.sort((a, b) => a.watchTime!.updatedAt < b.watchTime.updatedAt ? 1 : -1)
 
         return keepWatchinList
     }
